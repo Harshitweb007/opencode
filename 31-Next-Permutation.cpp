@@ -1,8 +1,28 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        next_permutation(nums.begin(),nums.end());
-        
-        
+        int n = nums.size();
+        int ind = -1;
+
+        // Step 1: Find pivot
+        for(int i = n - 2; i >= 0; i--) {
+            if(nums[i] < nums[i + 1]) {
+                ind = i;
+                break;
+            }
+        }
+
+        // Step 2: Find element greater than pivot and swap
+        if(ind != -1) {
+            for(int i = n - 1; i > ind; i--) {
+                if(nums[i] > nums[ind]) {
+                    swap(nums[i], nums[ind]);
+                    break;
+                }
+            }
+        }
+
+        // Step 3: Reverse the remaining suffix
+        reverse(nums.begin() + ind + 1, nums.end());
     }
 };
